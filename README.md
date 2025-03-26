@@ -7,9 +7,9 @@
   Add your open source license, GitHub uses MIT license.
 -->
 
-# GitHub Pages
+# Contenido referenciado de otros proyectos
 
-_Create a site or blog from your GitHub repositories with GitHub Pages._
+_Informacion relevante optenida de diferentes fuentes._
 
 </header>
 
@@ -21,34 +21,92 @@ _Create a site or blog from your GitHub repositories with GitHub Pages._
   Encourage users to open new tabs for steps!
 -->
 
-## Step 1: Enable GitHub Pages
+## Webhook
 
-_Welcome to GitHub Pages and Jekyll :tada:!_
+_Contenido obtenido de AI: DEEPSEEK_
 
-The first step is to enable GitHub Pages on this [repository](https://docs.github.com/en/get-started/quickstart/github-glossary#repository). When you enable GitHub Pages on a repository, GitHub takes the content that's on the main branch and publishes a website based on its contents.
+# Qué es un Webhook?
+Un webhook es un mecanismo de comunicación entre aplicaciones que permite el envío automático de datos en tiempo real desde un servidor origen (proveedor) a un servidor destino (cliente) cuando ocurre un evento específico. A diferencia de las APIs tradicionales (donde el cliente debe "preguntar" periódicamente por nuevos datos), los webhooks funcionan como un sistema de notificaciones push, donde el servidor origen envía la información apenas el evento se dispara.
 
-### :keyboard: Activity: Enable GitHub Pages
+🔹 Analogía Sencilla
+Imagina que un webhook es como una llamada telefónica automática que recibes cada vez que ocurre algo importante (ej: "Tu pedido fue enviado"). En lugar de tener que llamar tú cada hora para preguntar "¿Ya se envió?", te avisan apenas sucede.
 
-1. Open a new browser tab, and work on the steps in your second tab while you read the instructions in this tab.
-1. Under your repository name, click **Settings**.
-1. Click **Pages** in the **Code and automation** section.
-1. Ensure "Deploy from a branch" is selected from the **Source** drop-down menu, and then select `main` from the **Branch** drop-down menu.
-1. Click the **Save** button.
-1. Wait about _one minute_ then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
-   > Turning on GitHub Pages creates a deployment of your repository. GitHub Actions may take up to a minute to respond while waiting for the deployment. Future steps will be about 20 seconds; this step is slower.
-   > **Note**: In the **Pages** of **Settings**, the **Visit site** button will appear at the top. Click the button to see your GitHub Pages site.
+🔹 ¿Cómo Funciona?
+Configuración:
+
+Tú (cliente) proporcionas una URL pública (endpoint) al proveedor (ej: GitHub, PayPal, Shopify).
+
+Dices: "Cuando ocurra [evento X], envía los datos a esta URL".
+
+Evento y Notificación:
+
+Cuando el evento ocurre (ej: un pago, un commit en GitHub, un mensaje en Slack), el proveedor envía una solicitud HTTP (generalmente POST) a tu URL con los datos relevantes en formato JSON/XML.
+
+Procesamiento:
+
+Tu servidor recibe la solicitud, verifica su autenticidad (ej: con firma digital) y ejecuta la lógica programada (ej: actualizar una BD, enviar un email).
+
+# 🔹 Casos de Uso Comunes
+Pagos: PayPal te notifica cuando un cliente paga.
+
+GitHub: Avisa cuando hay un nuevo push al repositorio.
+
+Chatbots: Slack envía mensajes a tu app cuando un usuario escribe un comando.
+
+IoT: Un sensor envía datos cuando detecta movimiento.
+
+# 🔹 Ventajas vs. Polling (APIs tradicionales)
+Webhooks	Polling
+Notificaciones en tiempo real.	Consultas periódicas (puede haber retraso).
+Menor carga para el servidor (solo hay tráfico cuando ocurre algo).	Alto tráfico innecesario (preguntas aunque no haya novedades).
+Configuración inicial más compleja.	Más fácil de implementar (solo hacer requests).
+
+## 🔹 Ejemplo Técnico
+
+# python
+# Endpoint en Flask para recibir un webhook de GitHub
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/webhook-github', methods=['POST'])
+def github_webhook():
+    data = request.json  # Datos del evento (ej: push)
+    print(f"Nuevo commit en: {data['repository']['full_name']}")
+    return "OK", 200
+
+if __name__ == '__main__':
+    app.run(port=5000)
+
+# 🔹 Consideraciones Clave
+Seguridad:
+
+Usa HTTPS para evitar interceptación.
+
+Valida firmas (ej: GitHub envía un header X-Hub-Signature).
+
+Resiliencia:
+
+Implementa reintentos si tu servidor falla.
+
+Documentación:
+
+Revisa los formatos de datos del proveedor (cada servicio usa su propio esquema).
+
+📌 Conclusión
+Los webhooks son la columna vertebral de la automatización moderna, permitiendo integraciones eficientes y en tiempo real entre sistemas. Si tu aplicación necesita reaccionar instantáneamente a eventos externos, ¡son la solución ideal!
+
 
 <footer>
 
 <!--
   <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
+  El contenido aqui mostrado proviene de la AI
 -->
 
 ---
 
 Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/github-pages) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
 
-&copy; 2023 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
 </footer>
